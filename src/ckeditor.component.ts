@@ -161,6 +161,12 @@ export class CKEditorComponent implements AfterViewInit{
       this.toolbarButtons.forEach((button) => {
         button.initialize(this);
       });
+      
+      // workaround for https://github.com/chymz/ng2-ckeditor/issues/95
+      this.instance.on('key', () => setTimeout(() => { 
+        let value = this.instance.getData(); 
+        this.updateValue(value); 
+      },0));
 
     }
   }
